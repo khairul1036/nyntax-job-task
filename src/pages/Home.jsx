@@ -1,10 +1,12 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import InputFieldBox from "../components/InputFieldBox";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
+      <div className="w-1/2 mx-auto">
+        <InputFieldBox/>
+      </div>
     </>
   );
 };
