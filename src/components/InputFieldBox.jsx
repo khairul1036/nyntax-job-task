@@ -36,8 +36,12 @@ const InputFieldBox = () => {
       const response = await fetch(
         `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
       );
-      return response;
+      //   console.log(response.ok);
+      if (response.ok) {
+        return response;
+      }
     } catch {
+      setError("Not a word!");
       return false;
     }
   };
@@ -82,6 +86,11 @@ const InputFieldBox = () => {
     }
     setError("");
     clearInput();
+
+    // console.log(scores);
+    // if (scores === 0) {
+    //   setGameOver(true);
+    // }
   };
 
   const switchTurn = () => {
@@ -96,13 +105,13 @@ const InputFieldBox = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-5">
-        <h1 className="text-3xl font-bold mb-4">Shiritori Game {playerTurn}</h1>
+        <h1 className="text-3xl font-bold mb-4">Shiritori Game</h1>
         <p className="text-red-400 pb-5">{error}</p>
         {gameOver ? (
           <div className="text-center">
             <h2 className="text-2xl font-semibold mb-4">Game Over!</h2>
             <button
-              className="bg-blue-500 px-4 py-2 rounded-lg"
+              className="bg-blue-500 px-4 py-2 rounded-lg cursor-pointer"
               onClick={() => window.location.reload()}
             >
               Restart Game
@@ -118,7 +127,10 @@ const InputFieldBox = () => {
                   {timer}s
                 </p>
               </p>
-              <p className="text-lg mb-2">Last Word: {lastWord || "N/A"}</p>
+              <div className="mb-2 flex justify-between">
+                <p className="text-lg ">Last Word: {lastWord || "N/A"}</p>
+                <p className="text-lg font-semibold">Score: {scores[1]}</p>
+              </div>
 
               <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
                 {/* player 1 input  */}
@@ -166,7 +178,10 @@ const InputFieldBox = () => {
                   {timer}s
                 </p>
               </p>
-              <p className="text-lg mb-2">Last Word: {lastWord || "N/A"}</p>
+              <div className="mb-2 flex justify-between">
+                <p className="text-lg ">Last Word: {lastWord || "N/A"}</p>
+                <p className="text-lg font-semibold">Score: {scores[2]}</p>
+              </div>
 
               <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
                 {/* player 2 input  */}
